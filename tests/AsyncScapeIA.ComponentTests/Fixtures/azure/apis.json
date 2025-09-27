@@ -1,0 +1,15 @@
+{
+  \"value\": [
+    {
+      \"name\": \"payments-api\",
+      \"properties\": {
+        \"displayName\": \"Payments API\",
+        \"description\": \"Core payments service\",
+        \"apiRevision\": \"1\",
+        \"serviceUrl\": \"https://api.asyncscape.test/payments\",
+        \"format\": \"openapi+json-link\",
+        \"value\": \"https://storage.contoso.net/contracts/payments-openapi.json\"
+      }
+    }
+  ]
+}

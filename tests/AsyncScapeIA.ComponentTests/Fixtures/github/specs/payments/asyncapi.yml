@@ -1,0 +1,8 @@
+asyncapi: 2.6.0
+info:
+  title: Payments Events
+  version: 2024.09.0
+channels:
+  payments.events:
+    subscribe:
+      summary: Receive payment events

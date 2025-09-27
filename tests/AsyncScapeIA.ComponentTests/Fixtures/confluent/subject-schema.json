@@ -1,0 +1,5 @@
+{
+  \"schema\": \"{\\"openapi\\":\\"3.1.0\\",\\"info\\":{\\"title\\":\\"Catalog Payments\\",\\"version\\":\\"12.0.0\\"},\\"paths\\":{\\"/catalog/payments\\":{\\"get\\":{\\"responses\\":{\\"200\\":{\\"description\\":\\"OK\\"}}}}}}\",
+  \"schemaType\": \"OPENAPI\",
+  \"references\": []
+}

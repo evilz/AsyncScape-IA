@@ -1,0 +1,17 @@
+version: 1
+components:
+  - slug: payments-api
+    name: Payments API
+    domain: Payments
+    lifecycleState: Active
+    schemas:
+      - name: Payments API
+        path: specs/payments/openapi.yml
+        format: openapi
+        version: 1.2.0
+        checksum: sha256:abc123
+      - name: Payments Events
+        path: specs/payments/asyncapi.yml
+        format: asyncapi
+        version: 2024.09.0
+        checksum: sha256:def456

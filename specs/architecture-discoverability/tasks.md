@@ -9,15 +9,15 @@
 - [x] T003 [P] Add root solution items for `global.json`, `NuGet.config`, and baseline package references (EF Core 10 preview, Npgsql, Simple/UI, OpenTelemetry).
 
 ## Phase 3.2: Tests First (TDD) – Must Fail Before Implementation
-- [ ] T004 Create TUnit suite `tests/AsyncScapeIA.UnitTests/Domain/ArchitectureComponentTests.cs` covering ownership invariants (should fail initially).
-- [ ] T005 [P] Add TUnit suite `tests/AsyncScapeIA.UnitTests/Domain/SchemaDocumentTests.cs` verifying checksum/idempotency rules (fails).
-- [ ] T006 Provision Testcontainers harness in `tests/AsyncScapeIA.IntegrationTests/Infrastructure/CatalogPersistenceTests.cs` asserting repository persistence (fails until repository exists).
-- [ ] T007 [P] Add Testcontainers-based audit retention test in `tests/AsyncScapeIA.IntegrationTests/Infrastructure/AuditRetentionTests.cs` (fails pending cleanup job).
-- [ ] T008 Create connector contract tests in `tests/AsyncScapeIA.ComponentTests/Connectors/GitHubConnectorTests.cs` using recorded fixtures (fails until connector).
-- [ ] T009 [P] Add Confluent connector contract tests in `tests/AsyncScapeIA.ComponentTests/Connectors/ConfluentConnectorTests.cs` (fails).
-- [ ] T010 Add Azure API Management connector contract tests in `tests/AsyncScapeIA.ComponentTests/Connectors/AzureApiManagementConnectorTests.cs` (fails).
-- [ ] T011 [P] Author Playwright scenario `tests/AsyncScapeIA.UITests/Scenarios/CatalogSearch.spec.cs` covering login & search (fails until UI).
-- [ ] T012 Add Playwright scenario `tests/AsyncScapeIA.UITests/Scenarios/ManualSync.spec.cs` validating sync workflow (fails).
+- [x] T004 Create TUnit suite `tests/AsyncScapeIA.UnitTests/Domain/ArchitectureComponentTests.cs` covering ownership invariants (should fail initially).
+- [x] T005 [P] Add TUnit suite `tests/AsyncScapeIA.UnitTests/Domain/SchemaDocumentTests.cs` verifying checksum/idempotency rules (fails).
+- [x] T006 Provision Testcontainers harness in `tests/AsyncScapeIA.IntegrationTests/Infrastructure/CatalogPersistenceTests.cs` asserting repository persistence (fails until repository exists).
+- [x] T007 [P] Add Testcontainers-based audit retention test in `tests/AsyncScapeIA.IntegrationTests/Infrastructure/AuditRetentionTests.cs` (fails pending cleanup job).
+- [x] T008 Create connector contract tests in `tests/AsyncScapeIA.ComponentTests/Connectors/GitHubConnectorTests.cs` using recorded fixtures (fails until connector).
+- [x] T009 [P] Add Confluent connector contract tests in `tests/AsyncScapeIA.ComponentTests/Connectors/ConfluentConnectorTests.cs` (fails).
+- [x] T010 Add Azure API Management connector contract tests in `tests/AsyncScapeIA.ComponentTests/Connectors/AzureApiManagementConnectorTests.cs` (fails).
+- [x] T011 [P] Author Playwright scenario `tests/AsyncScapeIA.UITests/Scenarios/CatalogSearch.spec.cs` covering login & search (fails until UI).
+- [x] T012 Add Playwright scenario `tests/AsyncScapeIA.UITests/Scenarios/ManualSync.spec.cs` validating sync workflow (fails).
 
 ## Phase 3.3: Core Domain & Application Implementation
 - [ ] T013 Implement domain entities/value objects in `src/AsyncScapeIA.Domain/` (ArchitectureComponent, SchemaDocument, OwnershipRecord, SyncJob) satisfying failing tests.
@@ -80,6 +80,7 @@ T023 (Azure API Management connector)
 - Ensure each test task fails before implementing corresponding feature work (strict TDD flow).
 - Update task list status as progress occurs; treat tasks as checkpoints for commits.
 - Governance/SLA automation (T035) should reference metrics captured via OpenTelemetry to support monthly reporting.
+
 
 
 

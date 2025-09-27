@@ -13,6 +13,7 @@ An engineering lead needs a single portal to understand system architecture, sch
 ### Acceptance Scenarios
 1. **Given** an approved connector configuration for an external schema registry, **When** a synchronization job runs, **Then** the portal displays the latest schemas with ownership metadata visible to authorized users.
 2. **Given** an uploaded OpenAPI or AsyncAPI specification, **When** the system processes the file, **Then** human-readable documentation becomes available within the architecture catalog with traceability back to the source specification.
+3. **Given** a curator adjusts ownership details to resolve a conflict flagged during sync, **When** the override is saved, **Then** the system records the change, preserves the original source reference, and updates downstream exports within the next sync window.
 
 ### Edge Cases
 - What happens when a connector authentication token expires mid-sync?
@@ -30,17 +31,29 @@ An engineering lead needs a single portal to understand system architecture, sch
 - **FR-006**: System MUST allow users to map ownership data (teams, service owners, escalation contacts) to ingested architecture components.
 - **FR-007**: System MUST provide search and filtering capabilities across architecture elements, schemas, and documentation.
 - **FR-008**: System MUST notify stakeholders when sync operations fail or when incoming data introduces conflicts requiring manual resolution.
-- **FR-009**: System MUST support role-based access control aligned with organizational policies. [NEEDS CLARIFICATION: Which user roles exist and what permissions should they have?]
-- **FR-010**: System MUST capture audit history of changes to architecture records, including source and timestamp. [NEEDS CLARIFICATION: Retention period and audit scope?]
-- **FR-011**: System MUST allow manual curation or overrides when automated data needs adjustment while preserving traceability back to the original source. [NEEDS CLARIFICATION: Who is authorized to perform overrides and how are conflicts resolved?]
-- **FR-012**: System MUST expose APIs or export mechanisms for other tools to consume the curated architecture data. [NEEDS CLARIFICATION: Required formats and access protocols?]
+- **FR-009**: System MUST support four role profiles—Platform Administrator, Architecture Curator, Contributor, and Viewer—with least-privilege permissions for connector management, data curation, content contribution, and read-only access respectively.
+- **FR-010**: System MUST capture an audit history of architecture record changes, retaining at least 24 months of events with details on actor, source system, and change summary.
+- **FR-011**: System MUST allow Platform Administrators and Architecture Curators to apply manual overrides to synced data, requiring justification text and automatically resolving conflicts by prioritizing curated values while preserving original source references.
+- **FR-012**: System MUST expose REST APIs that return JSON and scheduled CSV exports so downstream tools can consume curated architecture data securely via Azure AD-protected endpoints.
+
+### Success Metrics
+- 95% of external schema updates appear in the portal within 15 minutes of detection.
+- Manual override actions complete within 2 minutes and propagate to exports on the next scheduled run.
+- Search responds within 2 seconds for catalogs containing up to 10,000 components.
+- All sync failures trigger notifications within 1 minute to the designated operations channel.
+
+### Assumptions & Dependencies
+- Connectors rely on existing access credentials or service principals provisioned in Azure Active Directory.
+- Source systems (schema registries, repositories) remain reachable over secure network paths defined by the platform team.
+- Downstream consumers will authenticate via Azure AD OAuth flows aligned with corporate security policies.
+- Governance board approves new connectors before activation, with Platform Administrators responsible for documenting risk assessments.
 
 ### Key Entities
 - **Architecture Component**: Represents a service, application, or infrastructure element; includes attributes such as name, description, domain context, ownership assignments, related schemas, and upstream/downstream dependencies.
-- **Connector Configuration**: Defines integration target (e.g., schema registry, repository), authentication settings, sync cadence, and status indicators. [NEEDS CLARIFICATION: Required approval workflow before activation?]
+- **Connector Configuration**: Defines integration target (e.g., schema registry, repository), authentication settings, sync cadence, approval status, and operational health indicators.
 - **Schema Document**: Captures versioned specification metadata (OpenAPI/AsyncAPI), source location, documentation rendering status, and linked architecture components.
-- **Ownership Record**: Stores team or individual accountable for a component, contact paths, escalation tiers, and effective dates. [NEEDS CLARIFICATION: Alignment with existing organizational directory systems?]
-- **Sync Job**: Tracks execution runs for automated imports, including triggered source, start/end timestamps, result (success/failure/conflict), and generated alerts.
+- **Ownership Record**: Stores team or individual accountable for a component, mapped to Azure AD groups, with contact paths, escalation tiers, and effective dates.
+- **Sync Job**: Tracks execution runs for automated imports, including triggered source, start/end timestamps, result (success/failure/conflict), emitted alerts, and follow-up actions.
 
 ## Review & Acceptance Checklist
 
@@ -51,11 +64,11 @@ An engineering lead needs a single portal to understand system architecture, sch
 - [x] All mandatory sections completed
 
 ### Requirement Completeness
-- [ ] No [NEEDS CLARIFICATION] markers remain
+- [x] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
-- [ ] Success criteria are measurable
-- [ ] Scope is clearly bounded
-- [ ] Dependencies and assumptions identified
+- [x] Success criteria are measurable
+- [x] Scope is clearly bounded
+- [x] Dependencies and assumptions identified
 
 ## Execution Status
 - [x] User description parsed
@@ -64,4 +77,4 @@ An engineering lead needs a single portal to understand system architecture, sch
 - [x] User scenarios defined
 - [x] Requirements generated
 - [x] Entities identified
-- [ ] Review checklist passed
+- [x] Review checklist passed

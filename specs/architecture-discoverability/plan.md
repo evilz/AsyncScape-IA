@@ -123,19 +123,50 @@ tests/
 
 **Task Generation Strategy**:
 - Base on `.specify/templates/tasks-template.md`.
-- Generate tasks for domain modeling, application services, connector adapters (Confluent, GitHub, Azure API Management, internal registries), infrastructure (EF Core, MinIO integration, audit retention), UI components, BackgroundService scheduler, observability stack, CI/CD pipelines.
-- Mark `[P]` for independent work streams (e.g., individual connector providers, UI modules, observability dashboard setup) while respecting dependencies.
-- Include tasks for migrations, seed data automation, identity provider integration, containerization, Aspire dev setup, and SLA monitoring configuration.
+- Generate tasks spanning domain modeling, application services, connectors, infrastructure, UI, background scheduling, observability, CI/CD, and governance reporting.
+- Mark `[P]` for independent work streams while respecting dependency ordering.
+- Include tasks for migrations, seed automation, identity integration, Aspire configuration, and SLA instrumentation.
 
 **Ordering Strategy**:
 - Follow TDD: write failing tests/contracts prior to implementation.
-- Flow by dependency: Domain → Application → Infrastructure → Integrations → Background services → Web UI → Export APIs/CLI.
+- Flow by dependency: Domain → Application → Infrastructure → Integrations → Background services → Web UI → Export APIs.
 - Build observability and security alongside functional deliverables; avoid deferred hardening phases.
+
+**Planned Task Breakdown**:
+1. Bootstrap solution structure with Domain/Application/Infrastructure/Integrations/WebApp/Workers/Shared projects and shared analyzers.
+2. Configure `.editorconfig`, nullable, warnings-as-errors, and baseline analyzer rules across all projects.
+3. Implement domain entities and value objects (ArchitectureComponent, SchemaDocument, OwnershipRecord, SyncJob) with invariants. `[P]`
+4. Author failing TUnit unit tests validating domain invariants and ownership requirements. `[P]`
+5. Implement application layer services for catalog queries, overrides, and exports with FluentValidation policies.
+6. Create Testcontainers-based integration harness (PostgreSQL + MinIO) with failing repository tests.
+7. Implement EF Core DbContext, configurations, and initial migrations aligned to data-model.md.
+8. Add idempotent seed service loading sample components, ownership groups, and connectors on first run.
+9. Build object storage gateway abstraction with MinIO provider for specification assets. `[P]`
+10. Implement audit retention BackgroundService enforcing 24-month policy via partition cleanup.
+11. Deliver connector SDK abstractions (`IConnectorProvider`, cursor persistence, resilience policies).
+12. Implement GitHub connector sourcing OpenAPI specs via authenticated HTTP client.
+13. Implement Confluent Schema Registry connector with artifact filtering and checksum support. `[P]`
+14. Implement Azure API Management connector leveraging Azure SDK pagination. `[P]`
+15. Author connector contract tests (happy path, auth failure, rate limiting) using recorded fixtures.
+16. Implement worker scheduling pipeline (PeriodicTimer + Channel) with telemetry hooks.
+17. Wire manual sync trigger flow and conflict resolution pipeline across application/worker layers.
+18. Expose export Minimal APIs matching `contracts/export-api.yaml` with pagination + authorization.
+19. Compose DI root in WebApp registering domain/application/infrastructure services.
+20. Build Simple/UI shell (navigation, layout, theming) with responsive breakpoints. `[P]`
+21. Implement catalog search/filter experience with debounced queries and result cards.
+22. Implement schema documentation viewer rendering OpenAPI/AsyncAPI content. `[P]`
+23. Implement ownership management UI for mapping components to groups with audit visibility.
+24. Integrate OpenID Connect auth (Microsoft.Identity.Web) and map roles to authorization policies.
+25. Define Aspire AppHost resources (WebApp, Workers, PostgreSQL, storage, identity, OTEL) plus ServiceDefaults.
+26. Instrument WebApp and Workers with OpenTelemetry traces, metrics, logs, and health endpoints.
+27. Author failing Playwright E2E scenarios (login, catalog search, manual sync validation).
+28. Add CI pipeline script executing analyzers, tests, coverage, Playwright, and container scans.
+29. Document governance SLA reporting workflow and automate monthly report template. `[P]`
+30. Update operational documentation (quickstart, connector guides, runbooks) with Aspire usage notes.
 
 **Estimated Output**: 25-30 numbered tasks with owners, dependencies, and `[P]` markers for parallelizable items.
 
 **IMPORTANT**: This phase is executed by the /tasks command, NOT by /plan
-
 ## Phase 3+: Future Implementation
 *These phases are beyond the scope of the /plan command*
 
@@ -156,7 +187,7 @@ tests/
 **Phase Status**:
 - [x] Phase 0: Research complete (/plan command)
 - [x] Phase 1: Design complete (/plan command)
-- [ ] Phase 2: Task planning complete (/plan command - describe approach only)
+- [x] Phase 2: Task planning complete (/plan command - describe approach only)
 - [ ] Phase 3: Tasks generated (/tasks command)
 - [ ] Phase 4: Implementation complete
 - [ ] Phase 5: Validation passed
@@ -169,6 +200,10 @@ tests/
 
 ---
 *Based on Constitution v1.0.0 - See `/memory/constitution.md`*
+
+
+
+
 
 
 

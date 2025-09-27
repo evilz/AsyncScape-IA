@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AsyncScapeIA.Application\AsyncScapeIA.Application.csproj" />
+    <ProjectReference Include="..\..\src\AsyncScapeIA.Infrastructure\AsyncScapeIA.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\AsyncScapeIA.Domain\AsyncScapeIA.Domain.csproj" />
+    <ProjectReference Include="..\..\src\AsyncScapeIA.Shared\AsyncScapeIA.Shared.csproj" />
+    <ProjectReference Include="..\..\src\AsyncScapeIA.Integrations\AsyncScapeIA.Integrations.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

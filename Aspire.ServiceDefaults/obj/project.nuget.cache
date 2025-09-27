@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "QWjOWMqjr+A=",
+  "success": false,
+  "projectFilePath": "E:\\PROJECTS\\GITHUB\\AsyncScape-IA\\Aspire.ServiceDefaults\\Aspire.ServiceDefaults.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1008",
+      "level": "Error",
+      "message": "The following PackageReference items cannot define a value for Version: Microsoft.Extensions.Http.Resilience, Microsoft.Extensions.ServiceDiscovery, OpenTelemetry.Exporter.OpenTelemetryProtocol, OpenTelemetry.Extensions.Hosting, OpenTelemetry.Instrumentation.AspNetCore, OpenTelemetry.Instrumentation.Http, OpenTelemetry.Instrumentation.Runtime. Projects using Central Package Management must define a Version value on a PackageVersion item. For more information, visit https://aka.ms/nuget/cpm/gettingstarted",
+      "projectPath": "E:\\PROJECTS\\GITHUB\\AsyncScape-IA\\Aspire.ServiceDefaults\\Aspire.ServiceDefaults.csproj",
+      "filePath": "E:\\PROJECTS\\GITHUB\\AsyncScape-IA\\Aspire.ServiceDefaults\\Aspire.ServiceDefaults.csproj",
+      "targetGraphs": []
+    }
+  ]
+}

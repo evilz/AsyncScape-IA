@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <AspireHostingSDKVersion>9.4.2</AspireHostingSDKVersion>
+    <!-- Do not import the workload targets as this project is instead using
+    the Aspire.AppHost.Sdk -->
+    <SkipAspireWorkloadManifest>true</SkipAspireWorkloadManifest>
+    <IsAspireHost>true</IsAspireHost>
+  </PropertyGroup>
+</Project>

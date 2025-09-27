@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>EnumerableAsyncProcessor</id>
+    <version>3.8.4</version>
+    <authors>Tom Longhurst</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/thomhurst/EnumerableAsyncProcessor</projectUrl>
+    <description>Various Enumerable Async Processors - Batch / Parallel / Rate Limited / One at a time</description>
+    <tags>async enumerable ienumerable linq array list processor delegate task tasks</tags>
+    <repository type="git" url="https://github.com/thomhurst/EnumerableAsyncProcessor" branch="refs/heads/main" commit="6b88a3904935c20b15b51ef758ead022b67383a4" />
+    <dependencies>
+      <group targetFramework="net6.0" />
+      <group targetFramework="net8.0" />
+      <group targetFramework="net9.0" />
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.Bcl.AsyncInterfaces" version="6.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

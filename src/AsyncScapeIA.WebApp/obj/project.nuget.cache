@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "I21hxvNT8tk=",
+  "success": true,
+  "projectFilePath": "E:\\PROJECTS\\GITHUB\\AsyncScape-IA\\src\\AsyncScapeIA.WebApp\\AsyncScapeIA.WebApp.csproj",
+  "expectedPackageFiles": [
+    "E:\\PROJECTS\\GITHUB\\AsyncScape-IA\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.0-rc.1.25451.107\\microsoft.aspnetcore.app.internal.assets.10.0.0-rc.1.25451.107.nupkg.sha512"
+  ],
+  "logs": []
+}

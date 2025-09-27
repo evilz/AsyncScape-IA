@@ -4,9 +4,9 @@
 **Prerequisites**: plan.md (required), research.md, data-model.md, contracts/
 
 ## Phase 3.1: Setup & Tooling
-- [ ] T001 Scaffold solution folders and .sln entries for `src/AsyncScapeIA.*`, `tests/AsyncScapeIA.*`, and Aspire projects per plan (`src/`, `tests/`, `Aspire.AppHost/`, `Aspire.ServiceDefaults/`).
-- [ ] T002 Configure shared `.editorconfig`, nullable, warnings-as-errors, and analyzer ruleset in `Directory.Build.props` / `Directory.Build.targets`.
-- [ ] T003 [P] Add root solution items for `global.json`, `NuGet.config`, and baseline package references (EF Core 10 preview, Npgsql, Simple/UI, OpenTelemetry).
+- [x] T001 Scaffold solution folders and .sln entries for `src/AsyncScapeIA.*`, `tests/AsyncScapeIA.*`, and Aspire projects per plan (`src/`, `tests/`, `Aspire.AppHost/`, `Aspire.ServiceDefaults/`).
+- [x] T002 Configure shared `.editorconfig`, nullable, warnings-as-errors, and analyzer ruleset in `Directory.Build.props` / `Directory.Build.targets`.
+- [x] T003 [P] Add root solution items for `global.json`, `NuGet.config`, and baseline package references (EF Core 10 preview, Npgsql, Simple/UI, OpenTelemetry).
 
 ## Phase 3.2: Tests First (TDD) – Must Fail Before Implementation
 - [ ] T004 Create TUnit suite `tests/AsyncScapeIA.UnitTests/Domain/ArchitectureComponentTests.cs` covering ownership invariants (should fail initially).

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\AsyncScapeIA.Application\AsyncScapeIA.Application.csproj" />
+    <ProjectReference Include="..\AsyncScapeIA.Infrastructure\AsyncScapeIA.Infrastructure.csproj" />
+    <ProjectReference Include="..\AsyncScapeIA.Integrations\AsyncScapeIA.Integrations.csproj" />
+    <ProjectReference Include="..\AsyncScapeIA.Shared\AsyncScapeIA.Shared.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+  </PropertyGroup>
+
+</Project>

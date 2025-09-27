@@ -20,7 +20,7 @@
 - [x] T012 Add Playwright scenario `tests/AsyncScapeIA.UITests/Scenarios/ManualSync.spec.cs` validating sync workflow (fails).
 
 ## Phase 3.3: Core Domain & Application Implementation
-- [ ] T013 Implement domain entities/value objects in `src/AsyncScapeIA.Domain/` (ArchitectureComponent, SchemaDocument, OwnershipRecord, SyncJob) satisfying failing tests.
+- [x] T013 Implement domain entities/value objects in `src/AsyncScapeIA.Domain/` (ArchitectureComponent, SchemaDocument, OwnershipRecord, SyncJob) satisfying failing tests.
 - [ ] T014 Build application services in `src/AsyncScapeIA.Application/Catalog/` & `.../Overrides/` handling queries, overrides, exports.
 - [ ] T015 [P] Implement FluentValidation policies and authorization requirements in `src/AsyncScapeIA.Application/Validation/`.
 - [ ] T016 Create infrastructure persistence layer: DbContext + entity configurations in `src/AsyncScapeIA.Infrastructure/Persistence/` and initial EF Core migration.
@@ -80,6 +80,7 @@ T023 (Azure API Management connector)
 - Ensure each test task fails before implementing corresponding feature work (strict TDD flow).
 - Update task list status as progress occurs; treat tasks as checkpoints for commits.
 - Governance/SLA automation (T035) should reference metrics captured via OpenTelemetry to support monthly reporting.
+
 
 
 

@@ -6,13 +6,4 @@
 **.pdb
 **.cache
 **/obj/
-**/bin/
-Aspire.AppHost/obj/Aspire.AppHost.csproj.nuget.dgspec.json
-Aspire.AppHost/obj/Aspire.AppHost.csproj.nuget.g.props
-Aspire.AppHost/obj/Aspire.AppHost.csproj.nuget.g.targets
-Aspire.AppHost/obj/project.assets.json
-Aspire.AppHost/obj/project.nuget.cache
-Aspire.AppHost/obj/Debug/net10.0/Aspire.AppHost.AssemblyInfo.cs
-Aspire.AppHost/obj/Debug/net10.0/Aspire.AppHost.AssemblyInfoInputs.cache
-Aspire.AppHost/obj/Debug/net10.0/Aspire.AppHost.assets.cache
-Aspire.AppHost/obj/Debug/net10.0/Aspire.AppHost.GlobalUsings.g.cs
+**/bin/.idea/

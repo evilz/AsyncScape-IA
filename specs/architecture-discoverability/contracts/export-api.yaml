@@ -1,0 +1,293 @@
+openapi: 3.1.0
+info:
+  title: Architecture Catalog Export API
+  version: 0.1.0
+  description: >-
+    Provides read-only access to curated architecture components, schemas,
+    and ownership metadata for downstream tooling.
+servers:
+  - url: https://api.example.com
+    description: Placeholder; replace with environment-specific host.
+security:
+  - oidc: []
+paths:
+  /v1/components:
+    get:
+      summary: List architecture components
+      operationId: listComponents
+      security:
+        - oidc:
+            - ArchitectureHub.Export.Read
+      parameters:
+        - name: domain
+          in: query
+          schema:
+            type: string
+        - name: lifecycleState
+          in: query
+          schema:
+            type: string
+            enum: [Proposed, Active, Deprecated, Retired]
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+      responses:
+        '200':
+          description: Components returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedComponentResponse'
+  /v1/components/{id}:
+    get:
+      summary: Get component by id
+      operationId: getComponent
+      security:
+        - oidc:
+            - ArchitectureHub.Export.Read
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Component details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentDetail'
+        '404':
+          description: Component not found
+  /v1/schemas:
+    get:
+      summary: List schema documents
+      operationId: listSchemas
+      security:
+        - oidc:
+            - ArchitectureHub.Export.Read
+      parameters:
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum: [OpenAPI, AsyncAPI]
+        - name: version
+          in: query
+          schema:
+            type: string
+        - name: componentId
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Schema documents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedSchemaResponse'
+  /v1/schemas/{id}/download:
+    get:
+      summary: Download specification asset
+      operationId: downloadSchema
+      security:
+        - oidc:
+            - ArchitectureHub.Export.Read
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Raw specification
+          content:
+            application/yaml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /v1/ownership:
+    get:
+      summary: List ownership records
+      operationId: listOwnership
+      security:
+        - oidc:
+            - ArchitectureHub.Export.Read
+      parameters:
+        - name: groupId
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ownership records
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedOwnershipResponse'
+components:
+  securitySchemes:
+    oidc:
+      type: openIdConnect
+      openIdConnectUrl: https://identity.example.com/.well-known/openid-configuration
+  schemas:
+    PagedComponentResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentSummary'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    ComponentSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        domain:
+          type: string
+        lifecycleState:
+          type: string
+          enum: [Proposed, Active, Deprecated, Retired]
+        lastUpdatedAt:
+          type: string
+          format: date-time
+    ComponentDetail:
+      allOf:
+        - $ref: '#/components/schemas/ComponentSummary'
+        - type: object
+          properties:
+            description:
+              type: string
+            businessCriticality:
+              type: string
+              enum: [Low, Medium, High]
+            ownership:
+              type: array
+              items:
+                $ref: '#/components/schemas/OwnershipAssignment'
+            schemas:
+              type: array
+              items:
+                $ref: '#/components/schemas/SchemaLink'
+    OwnershipAssignment:
+      type: object
+      properties:
+        ownershipRecordId:
+          type: string
+          format: uuid
+        role:
+          type: string
+          enum: [Primary, Secondary, Escalation]
+        displayName:
+          type: string
+        contact:
+          $ref: '#/components/schemas/Contact'
+    SchemaLink:
+      type: object
+      properties:
+        schemaDocumentId:
+          type: string
+          format: uuid
+        relationship:
+          type: string
+          enum: [Produces, Consumes, Documents]
+        version:
+          type: string
+    PagedSchemaResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SchemaSummary'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    SchemaSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        format:
+          type: string
+          enum: [OpenAPI, AsyncAPI]
+        version:
+          type: string
+        sourceUri:
+          type: string
+        lastSyncedAt:
+          type: string
+          format: date-time
+    PagedOwnershipResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OwnershipRecord'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    OwnershipRecord:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        externalGroupId:
+          type: string
+        displayName:
+          type: string
+        primaryContact:
+          $ref: '#/components/schemas/Contact'
+        escalationContacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+    Contact:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        timeZone:
+          type: string
+    Paging:
+      type: object
+      properties:
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        totalItems:
+          type: integer
+        totalPages:
+          type: integer

@@ -1,0 +1,23 @@
+sequenceDiagram
+    participant User as User
+    participant Browser as Browser
+    participant WebApp as AsyncScapeIA.WebApp
+    participant Worker as AsyncScapeIA.Workers
+    participant Postgres as PostgreSQL
+    participant Storage as Object Storage
+    participant Identity as OIDC Provider
+
+    User->>Browser: Navigate to portal
+    Browser->>Identity: OIDC authorize request
+    Identity-->>Browser: Auth code / tokens
+    Browser->>WebApp: Request catalog view (access token)
+    WebApp->>Postgres: Query components + ownership
+    WebApp-->>Browser: Render Blazor page
+    rect rgb(200,200,255)
+        Worker->>Postgres: Fetch pending sync jobs
+        Worker->>Storage: Retrieve OpenAPI/AsyncAPI assets
+        Worker->>Postgres: Upsert schema metadata
+        Worker->>WebApp: Emit signal (optional) to refresh views
+    end
+    Worker->>OTEL: Emit telemetry (traces/metrics)
+    WebApp->>OTEL: Emit telemetry

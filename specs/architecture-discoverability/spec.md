@@ -48,6 +48,7 @@ An engineering lead needs a single portal to understand system architecture, sch
 - Source systems (schema registries, repositories) remain reachable over secure network paths defined by the platform team.
 - Downstream consumers authenticate via the same OpenID Connect provider using delegated or client credential flows.
 - Governance board approves new connectors before activation, with Platform Administrators responsible for documenting risk assessments.
+- Monthly SLA reports (availability, RPO/RTO performance) are shared with the governance board for review and escalation tracking.
 - Hosting environments may vary (self-managed infrastructure, container platforms, or cloud services); solution must remain provider-agnostic.
 
 ### Key Entities
@@ -80,3 +81,4 @@ An engineering lead needs a single portal to understand system architecture, sch
 - [x] Requirements generated
 - [x] Entities identified
 - [x] Review checklist passed
+

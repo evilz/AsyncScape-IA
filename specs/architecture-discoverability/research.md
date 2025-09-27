@@ -16,7 +16,7 @@
 - **Minimal API Usage**: Serve export endpoints and webhook callbacks through Minimal APIs with `.MapGroup`, endpoint filters, and `.WithOpenApi()` metadata. Supports versioned groups and policy-based authorization.
 - **Hosting Model**: Distribute as containerized workloads (Docker/OCI) deployable to Kubernetes, Nomad, Azure Kubernetes Service, AWS ECS, or bare-metal clusters. No runtime dependency on a specific cloud provider.
 - **Configuration Management**: Use .NET configuration providers layered with environment variables, JSON, and optional secrets from HashiCorp Vault or Doppler (both offer free/open tooling). Avoid provider-specific services.
-- **Aspire in Development**: Use .NET Aspire AppHost + ServiceDefaults for local composition, but keep production deployment scripts independent (e.g., Helm charts, docker-compose).
+- **Aspire in Development**: Use .NET Aspire AppHost + ServiceDefaults for local composition, while production deployments rely on lightweight rollout manifests (e.g., Helm charts, plain container orchestrator manifests).
 
 ## Background Orchestration (Native .NET 10)
 - Implement scheduling with `BackgroundService`, `PeriodicTimer`, and `Task.Delay` for cadence control, avoiding external schedulers.
@@ -64,13 +64,13 @@
 - Availability objective: ≥99.5% monthly uptime with 4-hour monthly error budget.
 - Recovery Time Objective (RTO): 30 minutes for catalog service; Recovery Point Objective (RPO): 15 minutes via incremental connector replays.
 - Performance SLOs: portal response <2s p95, sync cycle <15 minutes for supported connectors, export generation within 5 minutes of change detection.
-- Observability SLO reviews conducted quarterly with governance board to adjust thresholds as catalog scales.
+- Observability SLO reviews conducted quarterly with governance board to adjust thresholds as catalog scales, plus monthly SLA reporting on availability and sync performance.
 
 ## Risk Assessment & Mitigations
 - **Component Support Lag**: Monitor Simple/UI releases; maintain abstraction to pivot to MudBlazor if .NET 10 support delays occur.
 - **Connector Credential Complexity**: Centralize credential issuance through IdP app registrations and automate rotation scripts.
 - **Sync Backlog Growth**: Implement adaptive throttling and concurrency limits per connector; scale worker replicas horizontally when backlog exceeds defined thresholds.
-- **Self-Managed Infrastructure**: Provide infrastructure-as-code samples (Helm charts, docker-compose) but ensure documentation covers bare-metal deployments.
+- **Self-Managed Infrastructure**: Provide infrastructure-as-code samples (Helm charts, simple container manifests) but ensure documentation covers bare-metal deployments.
 
 ## Open Questions / TODOs
 - Legal confirmation for Simple/UI usage in regulated environments (expected approval based on MIT license).
@@ -83,3 +83,5 @@
 - OpenTelemetry .NET getting started guides and CNCF observability playbooks.
 - TUnit GitHub repository and docs for modern .NET testing.
 - Testcontainers for .NET, Playwright .NET documentation, NSwag tooling guides.
+
+

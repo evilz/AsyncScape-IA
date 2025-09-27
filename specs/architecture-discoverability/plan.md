@@ -30,7 +30,7 @@
 - Phase 3-4: Implementation execution (manual or via tools)
 
 ## Summary
-Architecture Discoverability Hub delivers a Blazor-based ASP.NET Core portal that centralizes architecture components, schemas, and ownership metadata pulled from OpenAPI/AsyncAPI sources via pluggable connectors, operates with provider-agnostic infrastructure, and achieves deep observability using OpenTelemetry (optionally orchestrated with .NET Aspire for development).
+Architecture Discoverability Hub delivers a Blazor-based ASP.NET Core portal that centralizes architecture components, schemas, and ownership metadata pulled from OpenAPI/AsyncAPI sources via pluggable connectors, operates with provider-agnostic infrastructure, and achieves deep observability using OpenTelemetry (optionally orchestrated with .NET Aspire for development) while keeping the service topology intentionally minimal (WebApp, Worker, PostgreSQL, storage, identity, telemetry).
 
 ## Technical Context
 **Language/Version**: .NET 10 (ASP.NET Core, C# latest)  
@@ -40,7 +40,7 @@ Architecture Discoverability Hub delivers a Blazor-based ASP.NET Core portal tha
 **Testing**: TUnit + FluentAssertions (unit), bUnit + Verify (component), Testcontainers + Respawn (integration), Playwright .NET + axe-core (end-to-end), BenchmarkDotNet/k6 (performance)  
 **Target Platform**: Containerized deployment (Docker/OCI) suitable for Kubernetes, Nomad, Docker Swarm, or self-managed hosts; no dependency on specific cloud vendor  
 **Performance Goals**: 95% schema sync <15 min, search responses <2s for 10k components, override propagation before next export window (≤15 min)  
-**Constraints**: All libraries must be free/open source; hosting must remain provider-agnostic; enforce async-first patterns, OpenTelemetry instrumentation, 24-month audit retention, and responsive mobile UX  
+**Constraints**: All libraries must be free/open source; hosting must remain provider-agnostic; enforce async-first patterns, OpenTelemetry instrumentation, 24-month audit retention, responsive mobile UX, and minimal service footprint (avoid additional infrastructure until metrics justify)  
 **Scale/Scope**: Catalog up to 10k components, dozens of connectors, ~500 internal users, exports consumed by downstream tooling
 
 ## Constitution Check
@@ -50,8 +50,8 @@ Architecture Discoverability Hub delivers a Blazor-based ASP.NET Core portal tha
 - **Operational Observability**: Instrument via OpenTelemetry (traces/metrics/logs), propagate correlation IDs, expose health/readiness/startup endpoints, and provide Prometheus/Grafana dashboards. (PASS)
 - **Security & Compliance by Default**: Integrate OpenID Connect provider (Azure AD, Keycloak, Okta, etc.), manage secrets via Vault-compatible stores, enable nullable + analyzers with warnings-as-errors, and run dependency vulnerability scans. (PASS)
 - **Technical Standards**: Target .NET 10 LTS, implicit usings, editorconfig + dotnet format, multi-stage container builds with image scanning (Trivy/grype). (PASS)
-- **Delivery Workflow**: Follow trunk-based branching (`feature/{ticket}`), require domain-qualified review, apply semantic versioning, automate staging deployments (docker-compose or Helm) with smoke-tested promotions. (PASS)
-- **Governance Alignment**: Record constitution exceptions with expiry, note governance impacts in release notes, run quarterly compliance audits on SLA metrics. (PASS)
+- **Delivery Workflow**: Follow trunk-based branching (`feature/{ticket}`), require domain-qualified review, apply semantic versioning, automate staging deployments using Aspire pipeline scripts or lightweight rollout manifests with smoke-tested promotions. (PASS)
+- **Governance Alignment**: Record constitution exceptions with expiry, publish monthly SLA reports to the governance board, note governance impacts in release notes, and run quarterly compliance audits on SLA metrics. (PASS)
 
 ## Project Structure
 
@@ -114,11 +114,10 @@ tests/
 5. **Sync Orchestration Design**: Detail BackgroundService architecture (PeriodicTimer cadence, Channel queues, telemetry hooks), resilience policies, and graceful shutdown handling.
 6. **UI/UX Blueprint**: Map Blazor component hierarchy leveraging Simple/UI, responsive layouts, search/filter UX, documentation viewer flows; include major interactions in quickstart.md.
 7. **Security & Observability Specification**: Document OpenID Connect setup, scopes, token flows, secrets storage, and OpenTelemetry configuration (trace/span naming, metric dimensions, logging strategy).
-8. **Deployment Topology**: Describe container images, Compose/Helm manifests, optional Aspire usage, and how to deploy across different infrastructures without vendor lock-in.
-9. **Agent Context Update**: After producing design artifacts, run `.specify/scripts/powershell/update-agent-context.ps1 -AgentType codex` so the tooling reflects chosen technologies.
-
-**Output**: data-model.md, contracts, quickstart.md, initial failing tests, Aspire/deployment notes, updated agent context.
-
+8. **Deployment Topology**: Document Aspire-first deployment topology, container packaging, and map the minimal service set onto varied infrastructures without vendor lock-in.
+9. **Diagram & Test Scaffolds**: Capture system interaction diagrams (e.g., Mermaid sequence) and author failing unit/contract/E2E test scaffolds to guide implementation.
+10. **Agent Context Update**: After producing design artifacts, run  `.specify/scripts/powershell/update-agent-context.ps1 -AgentType codex` so the tooling reflects chosen technologies. 
+**Output**: data-model.md, contracts, quickstart.md, deployment-topology.md, sequence-diagram.mmd, tests.md, initial failing tests, Aspire notes, updated agent context.
 ## Phase 2: Task Planning Approach
 *This section describes what the /tasks command will do - DO NOT execute during /plan*
 
@@ -156,7 +155,7 @@ tests/
 
 **Phase Status**:
 - [x] Phase 0: Research complete (/plan command)
-- [ ] Phase 1: Design complete (/plan command)
+- [x] Phase 1: Design complete (/plan command)
 - [ ] Phase 2: Task planning complete (/plan command - describe approach only)
 - [ ] Phase 3: Tasks generated (/tasks command)
 - [ ] Phase 4: Implementation complete
@@ -164,9 +163,21 @@ tests/
 
 **Gate Status**:
 - [x] Initial Constitution Check: PASS
-- [ ] Post-Design Constitution Check: PASS
-- [ ] All NEEDS CLARIFICATION resolved
+- [x] Post-Design Constitution Check: PASS
+- [x] All NEEDS CLARIFICATION resolved
 - [ ] Complexity deviations documented
 
 ---
 *Based on Constitution v1.0.0 - See `/memory/constitution.md`*
+
+
+
+
+
+
+
+
+
+
+
+

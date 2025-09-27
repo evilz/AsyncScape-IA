@@ -11,7 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.4.2" />
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\AsyncScapeIA.WebApp\AsyncScapeIA.WebApp.csproj" />
+    <ProjectReference Include="..\src\AsyncScapeIA.Workers\AsyncScapeIA.Workers.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,50 +1,80 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+Version change: n/a -> 1.0.0
+Modified principles:
+- Initial publication
+Added sections:
+- Core Principles
+- Technical Standards
+- Delivery Workflow
+- Governance
+Removed sections:
+- None
+Templates requiring updates (1 updated / 0 pending):
+- .specify/templates/plan-template.md (version banner synced to 1.0.0)
+Follow-up TODOs:
+- None
+-->
+# AsyncScape-IA Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Clean Architecture Boundaries
+- MUST organize solutions using a clean architecture layout (Presentation -> Application -> Domain -> Infrastructure) and keep domain logic free from framework dependencies.
+- MUST enforce dependency direction via interfaces and dependency injection; lower layers cannot reference higher layers directly.
+- MUST package reusable components as internal NuGet packages or shared libraries with clear contracts before reuse.
+  
+Rationale: Strong boundaries keep features composable, testable, and resilient to refactors.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### Async and Resilient Execution
+- MUST implement I/O-bound work with async/await end-to-end; avoid blocking calls that break the async flow.
+- MUST propagate `CancellationToken` through public APIs and honour timeouts, retries, and circuit breakers for external calls.
+- MUST wrap transient failures using resilience libraries (e.g., Polly) with observability hooks to surface degraded behaviour.
+  
+Rationale: Async-first and resilient pipelines protect responsiveness and resource usage under load.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### Automated Quality Gates
+- MUST create unit, integration, and contract tests before implementation; PRs fail if new code lacks automated coverage.
+- MUST keep CI pipelines green by running dotnet format, analyzers, security scans, and full test suites on every merge.
+- MUST measure coverage and require justification for decreases; critical paths maintain targeted thresholds agreed in specs.
+  
+Rationale: Enforced gates stop regressions early and maintain predictable delivery velocity.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### Operational Observability
+- MUST emit structured logs, metrics, and traces (OpenTelemetry-compatible) with correlation identifiers for distributed flows.
+- MUST surface health probes and readiness signals for every deployable artifact; failures must include actionable metadata.
+- MUST retain diagnostic dashboards/runbooks linked from the repository to support on-call remediation within SLOs.
+  
+Rationale: Deep visibility reduces mean time to detect and repair incidents.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Security and Compliance by Default
+- MUST enable code analyzers, nullable reference types, and security linters; treat warnings as build-breaking until resolved.
+- MUST store secrets outside source control, use managed identities where possible, and rotate credentials automatically.
+- MUST run dependency vulnerability scans and patch high/critical CVEs within seven days or document risk acceptance.
+  
+Rationale: Security baked into delivery keeps user trust and meets regulatory expectations.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Technical Standards
+- Solutions MUST target the current .NET LTS release; plan migrations within one sprint of a new LTS announcement.
+- Projects MUST enable implicit usings, nullable reference types, file-scoped namespaces, and treat warnings as errors.
+- Shared conventions MUST align with the official .NET coding style (editorconfig enforced) and dotnet format in CI.
+- Package management MUST prefer NuGet feeds controlled by the organization; third-party packages require license review.
+- Containers and deployment artifacts MUST use multi-stage builds with vulnerability scanning in the pipeline.
+- Public APIs MUST be documented with XML comments or minimal API metadata and exported to OpenAPI/Swagger definitions.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Delivery Workflow
+- Work MUST flow through trunk-based development with short-lived branches named `feature/{ticket}` or `fix/{ticket}`.
+- Every PR MUST include linked spec/tasks, pass automated checks, and receive at least one domain-qualified review.
+- Releases MUST follow semantic versioning; release notes capture features, fixes, migrations, and constitutional impacts.
+- CI/CD MUST deploy to staging automatically; production promotion requires green smoke tests and sign-off from product & engineering.
+- Production incidents MUST trigger post-incident reviews within five business days, capturing remediation tasks.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+- This constitution supersedes conflicting guidance; teams MUST document exceptions with expiry dates and mitigation plans.
+- Amendments require proposal via PR referencing rationale, impact assessment, and updated affected templates.
+- Constitution versioning follows semantic rules (MAJOR: breaking principle change, MINOR: new/expanded rules, PATCH: clarifications).
+- Compliance reviews run quarterly; deviations discovered outside approved exceptions MUST be corrected or formally escalated.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+**Version**: 1.0.0 | **Ratified**: 2025-09-27 | **Last Amended**: 2025-09-27
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+

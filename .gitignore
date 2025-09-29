@@ -1,9 +1,21 @@
 .nuget/
+.idea/
+.codex/
 
-**.dll
-**.exe
-**.user
-**.pdb
-**.cache
+# Build artifacts
+**/bin/
 **/obj/
-**/bin/.idea/
+TestResults/
+
+# Logs and local outputs
+*.log
+build.out
+vuln.out
+
+# User-specific files
+*.user
+*.suo
+
+# Symbols and caches
+*.pdb
+*.cache

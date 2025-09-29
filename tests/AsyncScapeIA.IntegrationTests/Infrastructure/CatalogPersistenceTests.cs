@@ -15,7 +15,14 @@ public class CatalogPersistenceTests
 
         await using var connection = new NpgsqlConnection(container.GetConnectionString());
 
-        await Assert.That(async () => await connection.OpenAsync()).DoesNotThrow();
+        try
+        {
+            await connection.OpenAsync();
+        }
+        catch (Exception ex)
+        {
+            Assert.Fail($"OpenAsync threw: {ex}");
+        }
 
         Assert.Fail("Repository persistence not implemented yet");
     }

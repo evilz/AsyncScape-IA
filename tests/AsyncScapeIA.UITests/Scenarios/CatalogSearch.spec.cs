@@ -8,7 +8,7 @@ public class CatalogSearchSpec
     [Test]
     public async Task CatalogSearch_displays_results_for_component_query()
     {
-        await using var playwright = await Playwright.CreateAsync();
+        using var playwright = await Playwright.CreateAsync();
         await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
         {
             Headless = true

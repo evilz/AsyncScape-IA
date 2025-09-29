@@ -8,7 +8,7 @@ public class ManualSyncSpec
     [Test]
     public async Task ManualSync_triggers_connector_job_and_reports_status()
     {
-        await using var playwright = await Playwright.CreateAsync();
+        using var playwright = await Playwright.CreateAsync();
         await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
         {
             Headless = true

@@ -27,7 +27,7 @@
 - [x] T017 Add seed data service & startup hook in `src/AsyncScapeIA.Infrastructure/Bootstrap/SeedDataInitializer.cs`.
 - [x] T018 [P] Implement object storage gateway with MinIO provider in `src/AsyncScapeIA.Infrastructure/Storage/`.
 - [x] T019 Develop audit retention BackgroundService in `src/AsyncScapeIA.Workers/AuditRetentionWorker.cs`.
-- [ ] T020 Implement connector SDK abstractions in `src/AsyncScapeIA.Integrations/Abstractions/` with resilience policies.
+- [x] T020 Implement connector SDK abstractions in `src/AsyncScapeIA.Integrations/Abstractions/` with resilience policies.
 
 ## Phase 3.4: Connector Implementations & Scheduling
 - [ ] T021 Implement GitHub connector provider in `src/AsyncScapeIA.Integrations/GitHub/GitHubConnectorProvider.cs`.
@@ -80,6 +80,7 @@ T023 (Azure API Management connector)
 - Ensure each test task fails before implementing corresponding feature work (strict TDD flow).
 - Update task list status as progress occurs; treat tasks as checkpoints for commits.
 - Governance/SLA automation (T035) should reference metrics captured via OpenTelemetry to support monthly reporting.
+
 
 
 

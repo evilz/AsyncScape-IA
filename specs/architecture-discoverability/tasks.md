@@ -21,12 +21,12 @@
 
 ## Phase 3.3: Core Domain & Application Implementation
 - [x] T013 Implement domain entities/value objects in `src/AsyncScapeIA.Domain/` (ArchitectureComponent, SchemaDocument, OwnershipRecord, SyncJob) satisfying failing tests.
-- [ ] T014 Build application services in `src/AsyncScapeIA.Application/Catalog/` & `.../Overrides/` handling queries, overrides, exports.
-- [ ] T015 [P] Implement FluentValidation policies and authorization requirements in `src/AsyncScapeIA.Application/Validation/`.
-- [ ] T016 Create infrastructure persistence layer: DbContext + entity configurations in `src/AsyncScapeIA.Infrastructure/Persistence/` and initial EF Core migration.
-- [ ] T017 Add seed data service & startup hook in `src/AsyncScapeIA.Infrastructure/Bootstrap/SeedDataInitializer.cs`.
-- [ ] T018 [P] Implement object storage gateway with MinIO provider in `src/AsyncScapeIA.Infrastructure/Storage/`.
-- [ ] T019 Develop audit retention BackgroundService in `src/AsyncScapeIA.Workers/AuditRetentionWorker.cs`.
+- [x] T014 Build application services in `src/AsyncScapeIA.Application/Catalog/` & `.../Overrides/` handling queries, overrides, exports.
+- [x] T015 [P] Implement FluentValidation policies and authorization requirements in `src/AsyncScapeIA.Application/Validation/`.
+- [x] T016 Create infrastructure persistence layer: DbContext + entity configurations in `src/AsyncScapeIA.Infrastructure/Persistence/` and initial EF Core migration.
+- [x] T017 Add seed data service & startup hook in `src/AsyncScapeIA.Infrastructure/Bootstrap/SeedDataInitializer.cs`.
+- [x] T018 [P] Implement object storage gateway with MinIO provider in `src/AsyncScapeIA.Infrastructure/Storage/`.
+- [x] T019 Develop audit retention BackgroundService in `src/AsyncScapeIA.Workers/AuditRetentionWorker.cs`.
 - [ ] T020 Implement connector SDK abstractions in `src/AsyncScapeIA.Integrations/Abstractions/` with resilience policies.
 
 ## Phase 3.4: Connector Implementations & Scheduling
@@ -80,6 +80,7 @@ T023 (Azure API Management connector)
 - Ensure each test task fails before implementing corresponding feature work (strict TDD flow).
 - Update task list status as progress occurs; treat tasks as checkpoints for commits.
 - Governance/SLA automation (T035) should reference metrics captured via OpenTelemetry to support monthly reporting.
+
 
 
 

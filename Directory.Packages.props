@@ -28,5 +28,10 @@
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
     <PackageVersion Include="System.Drawing.Common" Version="9.0.9" />
     <PackageVersion Include="KubernetesClient" Version="17.0.14" />
+
+    <!-- Core dependencies -->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
+    <PackageVersion Include="FluentValidation" Version="11.9.0" />
   </ItemGroup>
 </Project>
